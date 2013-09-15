@@ -1,18 +1,22 @@
 require 'tempfile'
 
 class Camelizer
+  attr_accessor :replaced_lines
+
   def initialize(filename)
     @filename = filename
     @replaced_lines = []
   end
 
-  def camelize_file_lines()
-    File.open(@filename, 'r') do |file|
-      file.each_line {|line| @replaced_lines << self.camelize_line(line)}
-    end  
+  def camelize_file_lines
+    unless !File.exists?(@filename) 
+      File.open(@filename, 'r') do |file|
+        file.each_line {|line| @replaced_lines << self.camelize_line(line)}
+      end  
+    end
   end
 
-  def write_replaced_lines_to_temp_file()
+  def write_replaced_lines_to_temp_file
     temp_file = Tempfile.new(File.basename(@filename))
     @replaced_lines.each {|line| temp_file.puts line}
     temp_file.close
