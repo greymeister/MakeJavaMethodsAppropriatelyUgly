@@ -11,4 +11,4 @@ die () {
 [ "$#" -eq 1 ] || die "1 argument required, $# provided"
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-grep -lr --include='*.java' '[a-z]_[a-z]*(' $1 | xargs $DIR/camelize_this_crap.rb
+grep -lr --include='*.java' '[a-z]_[a-z]*(' $1 | xargs $DIR/camelize_from_stdin.rb
